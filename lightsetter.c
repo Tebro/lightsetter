@@ -25,7 +25,7 @@ const char* getBacklight() {
 }
 
 
-int getCurrentValue(char* path) {
+int getValueFromFile(char* path) {
   int currentValue;
   FILE* fptr;
 
@@ -39,7 +39,7 @@ int getCurrentValue(char* path) {
   return currentValue;
 }
 
-void setNewValue(char* path, int value) {
+void setValueInFile(char* path, int value) {
   FILE *fptr;
   fptr = fopen(path,"w");
 
@@ -74,8 +74,8 @@ int main(int argc, char *argv[]) {
 
   sprintf(pathMaxValue, "%s%s%s", basePath, backlight, "/max_brightness");
 
-  int currentValue = getCurrentValue(path);
-  int maxValue = getCurrentValue(pathMaxValue);
+  int currentValue = getValueFromFile(path);
+  int maxValue = getValueFromFile(pathMaxValue);
 
   printf("Current value: %d\n", currentValue);
 
@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
   }
 
   printf("New value will be: %d\n", newValue);
-  setNewValue(path, newValue);
+  setValueInFile(path, newValue);
 
   return 0;
 }
