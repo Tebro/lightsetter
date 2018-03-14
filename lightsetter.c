@@ -36,7 +36,6 @@ int getCurrentValue(char* path) {
 
   fscanf(fptr,"%d", &currentValue);
   fclose(fptr);
-  printf("Current value: %d\n", currentValue);
   return currentValue;
 }
 
