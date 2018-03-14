@@ -86,6 +86,10 @@ int main(int argc, char *argv[]) {
       newValue = maxValue;
   }
 
+  if (newValue < 0) {
+    newValue = 0;
+  }
+
   printf("New value will be: %d\n", newValue);
   setNewValue(path, newValue);
 
