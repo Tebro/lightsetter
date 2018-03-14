@@ -63,17 +63,28 @@ int main(int argc, char *argv[]) {
   int requestedChange = atoi(argv[1]);
 
 
-  const int pathMaxLength = strlen(basePath) + 30;
-  char path[pathMaxLength];
+  char path[255];
+  char pathMaxValue[255];
+
   printf("Figuring out backlight directory...\n");
-  sprintf(path, "%s%s%s", basePath, getBacklight(), "/brightness");
+
+  const char *backlight = getBacklight();
+
+  sprintf(path, "%s%s%s", basePath, backlight, "/brightness");
   printf("Path found: %s\n", path);
 
+  sprintf(pathMaxValue, "%s%s%s", basePath, backlight, "/max_brightness");
+
   int currentValue = getCurrentValue(path);
+  int maxValue = getCurrentValue(pathMaxValue);
 
   printf("Current value: %d\n", currentValue);
 
   int newValue = currentValue + requestedChange;
+
+  if (newValue > maxValue) {
+      newValue = maxValue;
+  }
 
   printf("New value will be: %d\n", newValue);
   setNewValue(path, newValue);
